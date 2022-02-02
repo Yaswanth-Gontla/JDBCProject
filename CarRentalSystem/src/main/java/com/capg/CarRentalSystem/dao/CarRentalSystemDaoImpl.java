@@ -211,6 +211,7 @@ public class CarRentalSystemDaoImpl implements CarRentalSystemDao {
 	}
 	
 	public List<List<String>> searchByFuelType(String fuel) {
+		carBrands = new ArrayList<List<String>>();
 		String sqlQuery = "select * from carrentalsystem.cars where fueltype=?";
 		try
 		{
@@ -265,6 +266,7 @@ public class CarRentalSystemDaoImpl implements CarRentalSystemDao {
 	}
 	public List<List<String>> searchBySeatingCapacity(int capacity) {
 		String sqlQuery = "select * from carrentalsystem.cars where seatingcapacity=?";
+		carBrands = new ArrayList<List<String>>();
 		try
 		{
 			ps = con.prepareStatement(sqlQuery);
@@ -301,6 +303,7 @@ public class CarRentalSystemDaoImpl implements CarRentalSystemDao {
 
 	public List<List<String>> searchByAvailability() {
 		String sqlQuery = "select * from carrentalsystem.cars where availability=?";
+		carBrands = new ArrayList<List<String>>();
 		try
 		{
 			ps = con.prepareStatement(sqlQuery);
@@ -408,8 +411,47 @@ public class CarRentalSystemDaoImpl implements CarRentalSystemDao {
 		return allOrders;
 	}
 
+	public boolean returnCar(String userName) {
+		String sqlQuery = "select * from carrentalsystem.orders where username=?";
+		
+		try
+		{
+			ps = con.prepareStatement(sqlQuery);
+			ps.setString(1, userName);
+			ResultSet rs = ps.executeQuery();
+			String carName="",carNumber="",user;
+			while(rs.next())
+			{
+				user=rs.getString(1);
+				carName = rs.getString(2);
+				carNumber = rs.getString(3);
+			}
+			sqlQuery = "delete from carrentalsystem.orders where username = ?";
+			ps = con.prepareStatement(sqlQuery);
+			ps.setString(1, userName);
+			int i = ps.executeUpdate();
+			if(i==1)
+			{
+				String sql = "update carrentalsystem.cars set availability =? where carnumber=?";
+				pst = con.prepareStatement(sql);
+				pst.setString(1,"Available");
+				pst.setString(2,carNumber);
+				pst.executeUpdate();
+			}
+			else
+				return false;
+			return true;
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		return false;
+	}
 
 
+	
 
 	
 

@@ -14,6 +14,7 @@ public interface CarRentalSystemDao
 	public List<String> printCompanies();
 	public List<List<String>> searchByBrand(String company);
 	public boolean increaseOrderCount(String userName,String carName, String carNumber);
+	public boolean returnCar(String userName);
 	
 	public List<String> printFuelTypes();
 	public List<List<String>> searchByFuelType(String fuel);

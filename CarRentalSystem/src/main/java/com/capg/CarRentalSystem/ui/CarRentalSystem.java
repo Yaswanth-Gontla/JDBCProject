@@ -150,7 +150,7 @@ public class CarRentalSystem
 				while(running)
 				{
 					System.out.println("Choose the any one to proceed");
-				    System.out.println("1.Order Car\n2.View Orders\n3.Exit");
+				    System.out.println("1.Order Car\n2.Return Car\n3.View Orders\n4.Exit");
 				    int choice = s.nextInt();
 				    switch(choice) {
 				    case 1:
@@ -158,10 +158,14 @@ public class CarRentalSystem
 						System.out.println("Car Ordered "+status);
 						break;
 				    case 2:
+				    	boolean returnStatus = clientService.returnCar(userName);
+				    	System.out.println("Return Status "+returnStatus);
+				    	break;
+				    case 3:
 				    	System.out.println("View My Orders");
 				    	clientService.viewOrders(userName);
 				    	break;
-				    case 3:
+				    case 4:
 			    		System.out.println("Application Closed Successfully");
 			    		running = false;
 			    		System.exit(0);

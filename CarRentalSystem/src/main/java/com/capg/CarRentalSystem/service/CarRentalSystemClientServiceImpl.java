@@ -135,6 +135,12 @@ public class CarRentalSystemClientServiceImpl implements CarRentalSystemClientSe
 		System.out.println();
 		}
 	}
+	
+	public boolean returnCar(String userName)
+	{
+		boolean stat = dao.returnCar(userName);
+		return stat;
+	}
 
 	public boolean checkUserName(String userName) {
 		
