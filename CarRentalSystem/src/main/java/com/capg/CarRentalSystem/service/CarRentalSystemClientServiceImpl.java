@@ -127,12 +127,19 @@ public class CarRentalSystemClientServiceImpl implements CarRentalSystemClientSe
 		allOrders = clientDao.viewOrders(userName);
 		System.out.println("SNO\tUser Name\tModel Name\tCar Number");
 		int cnt=1;
-		for (List<String> list : allOrders) {
-			System.out.print(cnt+"\t");
-			for (int i = 0; i < list.size(); i++)
-	            System.out.print(list.get(i) + "\t");
-		cnt+=1;
-		System.out.println();
+		if(allOrders.size()!=0)
+		{
+			for (List<String> list : allOrders) {
+				System.out.print(cnt+"\t");
+				for (int i = 0; i < list.size(); i++)
+		            System.out.print(list.get(i) + "\t");
+			cnt+=1;
+			System.out.println();
+			}
+		}
+		else
+		{
+			System.out.println("\n\n\nNo Orders...........");
 		}
 	}
 	
